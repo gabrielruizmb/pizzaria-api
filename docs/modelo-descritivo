@@ -1,1 +1,26 @@
 Modelo descritivo - Banco de dados da pizzaria
+
+Pedido:
+
+- Id
+- Nome do cliente
+- Nome do colaborador
+- Entrega(boolean)
+- Nome do entregador
+- Modo de pagamento
+- Pago
+- Cancelado
+- Produtos
+- Observação
+- Total
+
+Produto:
+
+- Id
+- Nome
+- Preço
+- Observação(propriedade de relacionamento)
+- Bebida(boolean)
+- Possui Sabor(boolean)
+- Quantidade de sabores
+- Sabores
