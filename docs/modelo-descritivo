@@ -3,7 +3,6 @@ Modelo descritivo - Banco de dados da pizzaria
 Usuário:
 
 - Id
-- E-mail
 - Login
 - Senha
 
@@ -31,13 +30,14 @@ Pedido:
 - Nome do colaborador
 - Entrega(boolean)
 - Nome do entregador
-- Modo de pagamento
 - Pago
 - Cancelado
 - Produtos
 - Observação
 - Observação de produto(propriedade de relacionamento)
 - Total
+- Total pago em dinherio
+- Total pago em cartão
 
 Produto:
 
