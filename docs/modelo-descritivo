@@ -26,6 +26,7 @@ Entregador:
 Pedido:
 
 - Id
+- Data
 - Nome do cliente
 - Nome do colaborador
 - Entrega(boolean)
