@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pizzaria_springboot.pizzaria.dtos.FuncionarioRecordDto;
@@ -16,6 +17,7 @@ import com.pizzaria_springboot.pizzaria.repositories.FuncionarioRepository;
 import jakarta.validation.Valid;
 
 @RestController
+@RequestMapping(value = "funcionarios")
 public class FuncionarioController {
 
 	FuncionarioRepository funcionarioRepository;
@@ -24,19 +26,19 @@ public class FuncionarioController {
 		this.funcionarioRepository = funcionarioRepository;
 	}
 
-	@GetMapping("/funcionarios/lista")
+	@GetMapping("/lista")
 	public ResponseEntity<List<FuncionarioModel>> findAllFuncionarios() {
 		return ResponseEntity.status(HttpStatus.OK).body(funcionarioRepository.findAll());
 	}
 
-	@PostMapping("/funcionarios")
-	public ResponseEntity<?> saveFuncionario(@RequestBody @Valid FuncionarioRecordDto funcionarioRecordDto) {
+	@PostMapping
+	public ResponseEntity<Object> saveFuncionario(@RequestBody @Valid FuncionarioRecordDto funcionarioRecordDto) {
 		try {
 			var funcionarioModel = new FuncionarioModel();
 			BeanUtils.copyProperties(funcionarioRecordDto, funcionarioModel);
 			return ResponseEntity.status(HttpStatus.CREATED).body(funcionarioRepository.save(funcionarioModel));
 		} catch(Exception exception) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(funcionarioRecordDto);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
 		}
 	}
 }
