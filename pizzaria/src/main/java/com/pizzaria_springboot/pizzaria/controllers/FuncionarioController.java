@@ -1,7 +1,6 @@
 package com.pizzaria_springboot.pizzaria.controllers;
 
 import java.util.List;
-import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pizzaria_springboot.pizzaria.dtos.FuncionarioRecordDto;
 import com.pizzaria_springboot.pizzaria.models.FuncionarioModel;
 import com.pizzaria_springboot.pizzaria.repositories.FuncionarioRepository;
+import com.pizzaria_springboot.pizzaria.services.FuncionarioService;
 
 import jakarta.validation.Valid;
 
@@ -21,9 +21,12 @@ import jakarta.validation.Valid;
 public class FuncionarioController {
 
 	FuncionarioRepository funcionarioRepository;
+	FuncionarioService funcionarioService;
 
-	public FuncionarioController(FuncionarioRepository funcionarioRepository) {
+	public FuncionarioController(FuncionarioRepository funcionarioRepository, 
+								 FuncionarioService funcionarioService) {
 		this.funcionarioRepository = funcionarioRepository;
+		this.funcionarioService = funcionarioService;
 	}
 
 	@GetMapping("/lista")
@@ -32,13 +35,14 @@ public class FuncionarioController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Object> saveFuncionario(@RequestBody @Valid FuncionarioRecordDto funcionarioRecordDto) {
+	public ResponseEntity<Object> saveFuncionario(@RequestBody @Valid 
+			FuncionarioRecordDto funcionarioRecordDto) {
 		try {
-			var funcionarioModel = new FuncionarioModel();
-			BeanUtils.copyProperties(funcionarioRecordDto, funcionarioModel);
-			return ResponseEntity.status(HttpStatus.CREATED).body(funcionarioRepository.save(funcionarioModel));
+			return ResponseEntity.status(HttpStatus.CREATED).body(
+				this.funcionarioService.funcionarioValidation(funcionarioRecordDto));
 		} catch(Exception exception) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+				exception.getMessage());
 		}
 	}
 }
