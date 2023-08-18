@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.pizzaria_springboot.pizzaria.models.FuncionarioModel;
 
 public interface FuncionarioRepository extends JpaRepository<FuncionarioModel, Long>{
-  
+    public FuncionarioModel findByNome(final String nome);
 }

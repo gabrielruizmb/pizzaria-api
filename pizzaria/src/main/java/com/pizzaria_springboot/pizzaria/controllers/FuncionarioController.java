@@ -1,10 +1,14 @@
 package com.pizzaria_springboot.pizzaria.controllers;
 
 import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +33,21 @@ public class FuncionarioController {
 		this.funcionarioService = funcionarioService;
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> findFuncionario(@PathVariable("id") Long id) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(
+				this.funcionarioService.findFuncionarioModel(id));
+		} catch(Exception exception) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+				exception.getMessage());
+		}
+	}
+
 	@GetMapping("/lista")
 	public ResponseEntity<List<FuncionarioModel>> findAllFuncionarios() {
-		return ResponseEntity.status(HttpStatus.OK).body(funcionarioRepository.findAll());
+		return ResponseEntity.status(HttpStatus.OK).body(
+			this.funcionarioService.findAllFuncionarios());
 	}
 
 	@PostMapping
@@ -42,6 +58,32 @@ public class FuncionarioController {
 				this.funcionarioService.funcionarioValidation(funcionarioRecordDto));
 		} catch(Exception exception) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+				exception.getMessage());
+		}
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<String> updateFuncionario(@PathVariable("id") final Long id,
+			@RequestBody @Valid FuncionarioRecordDto funcionarioRecordDto) {
+			
+		try {
+			this.funcionarioService.updateFuncionarioValidation(id, funcionarioRecordDto);
+			return ResponseEntity.status(HttpStatus.CREATED).body(
+				"Funcionário editado com sucesso!");
+		} catch(Exception exception) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+				"Funcionário não encontrado.");
+		}
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteFuncionario(@PathVariable("id") final Long id) {
+		try {
+			this.funcionarioService.deleteFuncionarioValidation(id);
+			return ResponseEntity.status(HttpStatus.OK).body(
+				"Funcionário deletado com sucesso!");	
+		} catch (Exception exception){
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
 				exception.getMessage());
 		}
 	}
