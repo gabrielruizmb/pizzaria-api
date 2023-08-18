@@ -46,10 +46,11 @@ public class FuncionarioService {
     public void updateFuncionarioValidation(final Long id, 
             FuncionarioRecordDto funcionarioRecordDto) {
         
-        Assert.isTrue(this.funcionarioRepository.existsById(id), 
-                      "Este registro de funcionário não existe.");
-
-        var funcionarioModel = new FuncionarioModel();
+        Optional<FuncionarioModel> dbFuncionario = this.funcionarioRepository.findById(id);
+        Assert.isTrue(dbFuncionario.isPresent(), 
+                      "Este registro de funcionário não existe");
+                      
+        var funcionarioModel = dbFuncionario.get();
         BeanUtils.copyProperties(funcionarioRecordDto, funcionarioModel);
 
         funcionarioRepository.save(funcionarioModel);  
