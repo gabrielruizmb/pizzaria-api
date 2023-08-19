@@ -72,7 +72,7 @@ public class FuncionarioController {
 				"Funcionário editado com sucesso!");
 		} catch(Exception exception) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-				"Funcionário não encontrado.");
+				exception.getMessage());
 		}
 	}
 
