@@ -3,7 +3,6 @@ package com.pizzaria_springboot.pizzaria.adress;
 import com.pizzaria_springboot.pizzaria.user.UserModel;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record AdressRecordDto(
@@ -13,5 +12,5 @@ public record AdressRecordDto(
         message = "O endereço deve conter entre 5 e 100 caracteres"
     ) String adress,
 
-    @NotNull UserModel user
+    UserModel user
 ) {}

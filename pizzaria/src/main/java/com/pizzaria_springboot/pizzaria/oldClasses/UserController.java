@@ -1,4 +1,4 @@
-package com.pizzaria_springboot.pizzaria.user;
+package com.pizzaria_springboot.pizzaria.oldClasses;
 
 import java.util.List;
 
@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pizzaria_springboot.pizzaria.user.UserModel;
+import com.pizzaria_springboot.pizzaria.user.UserRecordDto;
+import com.pizzaria_springboot.pizzaria.user.UserRepository;
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -22,10 +26,10 @@ public class UserController {
 	UserRepository userRepository;
 	UserService userService;
 
-	public UserController(UserRepository funcionarioRepository, 
-								 UserService funcionarioService) {
-		this.userRepository = funcionarioRepository;
-		this.userService = funcionarioService;
+	public UserController(UserRepository userRepository, 
+								 UserService userService) {
+		this.userRepository = userRepository;
+		this.userService = userService;
 	}
 
 	@GetMapping("/{id}")
@@ -46,11 +50,11 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Object> saveFuncionario(@RequestBody @Valid 
-			UserRecordDto funcionarioRecordDto) {
+	public ResponseEntity<Object> createUser(@RequestBody @Valid 
+			UserRecordDto userRecordDto) {
 		try {
-			return ResponseEntity.status(HttpStatus.CREATED).body(
-				this.userService.funcionarioValidation(funcionarioRecordDto));
+			this.userService.createUserValidation(userRecordDto);
+			return ResponseEntity.status(HttpStatus.CREATED).body(null);
 		} catch(Exception exception) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
 				exception.getMessage());

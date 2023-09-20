@@ -1,6 +1,6 @@
 package com.pizzaria_springboot.pizzaria.user;
 
-import org.hibernate.mapping.List;
+import com.pizzaria_springboot.pizzaria.adress.AdressModel;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -10,7 +10,7 @@ public record UserRecordDto(
 		min = 5,
 		max = 20,
 		message = "O nome de usuário deve conter entre 5 e 20 caracteres"
-	) String userName,
+	) String username,
 
 	@NotBlank @Size(
 		min = 8,
@@ -23,7 +23,6 @@ public record UserRecordDto(
 		max = 50, 
 		message = "O nome deve conter entre 2 e 50 caracteres"
 	) String name,
-
-	boolean admin
-	//List adresses
+	boolean admin,
+	AdressModel adress
 ) {}

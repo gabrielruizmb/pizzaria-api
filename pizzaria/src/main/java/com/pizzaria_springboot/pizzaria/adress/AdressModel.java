@@ -1,11 +1,8 @@
 package com.pizzaria_springboot.pizzaria.adress;
 
 import com.pizzaria_springboot.pizzaria.AbstractEntity;
-import com.pizzaria_springboot.pizzaria.user.UserModel;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,8 +16,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "tb_adresses")
 public class AdressModel extends AbstractEntity{
-	private String adress;	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private UserModel user;
+	private String CEP;
+	private String district;
+	private String street;
+	private String number;
+	private String complement;
 }
