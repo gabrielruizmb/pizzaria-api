@@ -1,7 +1,11 @@
 package com.pizzaria_springboot.pizzaria.user;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface UserRepository extends JpaRepository<UserModel, Long>{
-    public UserModel findByName(final String name);
+    public Optional<UserModel> findByUsername(final String username);
 }

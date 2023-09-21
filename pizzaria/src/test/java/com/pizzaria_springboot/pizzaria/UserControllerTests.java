@@ -1,33 +1,33 @@
 // package com.pizzaria_springboot.pizzaria;
 
-// import org.junit.Assert;
 // import org.junit.jupiter.api.Test;
+// import org.junit.runner.RunWith;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 // import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.http.HttpStatus;
-// import org.springframework.http.HttpStatusCode;
+// import org.springframework.boot.test.mock.mockito.MockBean;
+// import org.springframework.test.context.junit4.SpringRunner;
+// import org.springframework.test.web.servlet.MockMvc;
 
-// import com.pizzaria_springboot.pizzaria.user.UserController;
-// import com.pizzaria_springboot.pizzaria.user.UserRecordDto;
+// import com.pizzaria_springboot.pizzaria.user.UserService;
 
+// import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+// import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+// @RunWith(SpringRunner.class)
 // @SpringBootTest
+// @AutoConfigureMockMvc
 // class UserControllerTests {
 
+// 	@Autowired
+// 	MockMvc mockMvc;
+
+// 	@MockBean
+// 	UserService userService;
+
 // 	@Test
-// 	public void createUserTest() {
-// 		final UserRecordDto userRecordDto = new UserRecordDto(
-// 			"userName", 
-// 			"password", 
-// 			"Gabriel", 
-// 			false, 
-// 			null
-// 		);
-		
-// 		final UserController userController = new UserController(null, null);
-
-
-// 		Assert.assertTrue(
-// 			userController.createUser(userRecordDto).getHeaders().,
-// 			HttpStatus.CREATED
-// 		);
+// 	public void getUserTest() {
+// 		mockMvc.perform(post("/usuarios"))
+// 				.andExpect(status().isOk());
 // 	}
 // }
