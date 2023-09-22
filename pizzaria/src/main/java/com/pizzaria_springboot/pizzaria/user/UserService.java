@@ -20,12 +20,30 @@ public class UserService {
 
     public boolean isValidUserUpdate(Long id, UserRecordDto userRecordDto) {
 
-        UserModel userModel = this.userRepository.findByUsername(userRecordDto.username());
-        if (userModel != null) {
+        UserModel dbUser = this.userRepository.findByUsername(userRecordDto.username());
+        if (dbUser != null) {
             Assert.isTrue(
-                id == userModel.getId(), "Este nome de usuário já está em uso."
+                id == dbUser.getId(), "Este nome de usuário já está em uso."
             );
         }
         return true;
     }
+
+    public boolean deleteUser(Long id) {
+        Assert.isTrue(
+            this.userRepository.existsById(id), 
+            "Usuário não encontrado."
+        );
+        this.userRepository.deleteById(id);
+        return true;
+    }
+
+    // public UserModel findUser(Long id) {
+    //     Assert.isTrue(
+    //         this.userRepository.existsById(id), 
+    //         "Usuário não encontrado."
+    //     );
+
+    //     return this.userRepository.findById(id).orElse(null);
+    // }
 }
