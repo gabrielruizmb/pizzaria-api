@@ -18,7 +18,7 @@ import com.pizzaria_springboot.pizzaria.user.UserService;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class UserServiceTest {
+public class UserServiceTests {
 
     @Autowired
     private final UserService userService = new UserService();
@@ -29,7 +29,8 @@ public class UserServiceTest {
     @Before
     public void setUp() {
 
-        UserModel userModel = creatUserModel();
+        Long id = 1L;
+        UserModel userModel = createUserModel();
 
         Mockito.when(userRepository.findByUsername(userModel.getUsername()))
                 .thenReturn(null);
@@ -37,11 +38,14 @@ public class UserServiceTest {
         Mockito.when(userRepository.save(userModel))
                 .thenReturn(userModel);
 
-        Mockito.when(userRepository.existsById(1L))
+        Mockito.when(userRepository.existsById(id))
                 .thenReturn(true);
+
+        Mockito.when(userRepository.findById(id))
+                .thenReturn(java.util.Optional.of(userModel));
     }
 
-    public UserModel creatUserModel() {
+    public UserModel createUserModel() {
         UserModel userModel = new UserModel(
             "userName", 
             "password", 
@@ -54,8 +58,17 @@ public class UserServiceTest {
 
     @Test
     public void createUserValidationTest() {
-        UserModel userModel = creatUserModel();
+        UserModel userModel = createUserModel();
         userService.createUserValidation(userModel);
+        verify(userRepository).findByUsername(userModel.getUsername());
+        verify(userRepository).save(userModel);
+    }
+
+    @Test
+    public void updateUserValidation() {
+        Long id = 1L;
+        UserModel userModel = createUserModel();
+        userService.updateUserValidation(id, userModel);
         verify(userRepository).findByUsername(userModel.getUsername());
         verify(userRepository).save(userModel);
     }
@@ -66,5 +79,19 @@ public class UserServiceTest {
         userService.deleteUserValidation(id);
         verify(userRepository).existsById(id);
         verify(userRepository).deleteById(id);
+    }
+
+    @Test
+    public void getUserValidationTest() {
+        Long id = 1L;
+        userService.getUserValidation(id);
+        verify(userRepository).existsById(id);
+        verify(userRepository).findById(id);
+    }
+
+    @Test
+    public void getUsersTest() {
+        userService.getUsers();
+        verify(userRepository).findAll();
     }
 }

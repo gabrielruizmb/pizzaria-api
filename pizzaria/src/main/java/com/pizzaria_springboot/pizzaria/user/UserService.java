@@ -1,6 +1,8 @@
 package com.pizzaria_springboot.pizzaria.user;
 
-import org.springframework.beans.BeanUtils;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -21,15 +23,18 @@ public class UserService {
         this.userRepository.save(userModel);
     }
 
-    public boolean isValidUserUpdate(Long id, UserRecordDto userRecordDto) {
+    public void updateUserValidation(Long id, UserModel userModel) {
 
-        UserModel dbUser = this.userRepository.findByUsername(userRecordDto.username());
-        if (dbUser != null) {
+        UserModel dbUserModel = 
+        this.userRepository.findByUsername(userModel.getUsername());
+
+        if (dbUserModel != null) {
             Assert.isTrue(
-                id == dbUser.getId(), "Este nome de usuário já está em uso."
+                dbUserModel.getId() == id,
+                "Este nome de usuário já está em uso."
             );
         }
-        return true;
+        this.userRepository.save(userModel);
     }
 
     public void deleteUserValidation(Long id) {
@@ -40,12 +45,15 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    // public UserModel findUser(Long id) {
-    //     Assert.isTrue(
-    //         this.userRepository.existsById(id), 
-    //         "Usuário não encontrado."
-    //     );
+    public Optional<UserModel> getUserValidation(Long id) {
+        Assert.isTrue(
+            this.userRepository.existsById(id), 
+            "Usuário não encontrado."
+        );
+        return this.userRepository.findById(id);
+    }
 
-    //     return this.userRepository.findById(id).orElse(null);
-    // }
+    public List<UserModel> getUsers() {
+        return this.userRepository.findAll();
+    }
 }
