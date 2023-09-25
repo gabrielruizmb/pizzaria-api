@@ -1,5 +1,6 @@
 package com.pizzaria_springboot.pizzaria.user;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -10,12 +11,14 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public boolean isValidNewUser(UserRecordDto userRecordDto) {
-        UserModel dbUser = this.userRepository.findByUsername(
-            userRecordDto.username()
-        );
-        Assert.isNull(dbUser, "Este nome de usuário já está em uso.");
-        return true;
+    public void createUserValidation(UserModel userModel) {
+        
+        Assert.isNull(
+            this.userRepository.findByUsername(userModel.getUsername()),
+            "Este nome de usuário já está em uso."
+            );
+            
+        this.userRepository.save(userModel);
     }
 
     public boolean isValidUserUpdate(Long id, UserRecordDto userRecordDto) {
@@ -29,13 +32,12 @@ public class UserService {
         return true;
     }
 
-    public boolean deleteUser(Long id) {
+    public void deleteUserValidation(Long id) {
         Assert.isTrue(
             this.userRepository.existsById(id), 
             "Usuário não encontrado."
         );
         this.userRepository.deleteById(id);
-        return true;
     }
 
     // public UserModel findUser(Long id) {
