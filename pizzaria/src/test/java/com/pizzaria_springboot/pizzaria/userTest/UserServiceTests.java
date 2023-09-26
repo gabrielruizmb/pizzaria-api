@@ -2,6 +2,10 @@ package com.pizzaria_springboot.pizzaria.userTest;
 
 import static org.mockito.Mockito.verify;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.pizzaria_springboot.pizzaria.user.UserModel;
+import com.pizzaria_springboot.pizzaria.user.UserRecordDto;
 import com.pizzaria_springboot.pizzaria.user.UserRepository;
 import com.pizzaria_springboot.pizzaria.user.UserService;
 
@@ -43,6 +48,9 @@ public class UserServiceTests {
 
         Mockito.when(userRepository.findById(id))
                 .thenReturn(java.util.Optional.of(userModel));
+
+        Mockito.when(userRepository.findAll())
+                .thenReturn(createUserModelList());
     }
 
     public UserModel createUserModel() {
@@ -54,6 +62,22 @@ public class UserServiceTests {
             null
         );
         return userModel;
+    }
+
+    public List<UserModel> createUserModelList() {
+        List<UserModel> userModelList = new ArrayList<>();
+        return userModelList;
+    }
+
+    public UserRecordDto createUserRecordDto() {
+        UserRecordDto userRecordDto = new UserRecordDto(
+            "userName", 
+            "password", 
+            "Gabriel", 
+            false, 
+            null
+        );
+        return userRecordDto;
     }
 
     @Test
@@ -84,14 +108,21 @@ public class UserServiceTests {
     @Test
     public void getUserValidationTest() {
         Long id = 1L;
-        userService.getUserValidation(id);
+
+        Assert.assertEquals(
+            userService.getUserValidation(id),
+            createUserRecordDto()
+        );
         verify(userRepository).existsById(id);
         verify(userRepository).findById(id);
     }
 
     @Test
     public void getUsersTest() {
-        userService.getUsers();
+        Assert.assertEquals(
+            userService.getUsers(),
+            createUserModelList()
+        );
         verify(userRepository).findAll();
     }
 }
