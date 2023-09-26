@@ -1,5 +1,6 @@
 package com.pizzaria_springboot.pizzaria.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,15 +46,36 @@ public class UserService {
         this.userRepository.deleteById(id);
     }
 
-    public Optional<UserModel> getUserValidation(Long id) {
+    public UserRecordDto getUserValidation(Long id) {
         Assert.isTrue(
             this.userRepository.existsById(id), 
             "Usuário não encontrado."
         );
-        return this.userRepository.findById(id);
+        UserModel userModel = this.userRepository.findById(id).get();
+        UserRecordDto userRecordDto = new UserRecordDto(
+            userModel.getUsername(), 
+            userModel.getPassword(), 
+            userModel.getName(), 
+            userModel.isAdmin(), 
+            userModel.getAdress()
+        );
+        return userRecordDto;
     }
 
-    public List<UserModel> getUsers() {
-        return this.userRepository.findAll();
+    public List<UserRecordDto> getUsers() {
+        List<UserModel> dbUsers = this.userRepository.findAll();
+        List<UserRecordDto> userRecordDtos = new ArrayList<>();
+        for (UserModel dbUser : dbUsers) {
+            userRecordDtos.add(
+                new UserRecordDto(
+                    dbUser.getUsername(),
+                    dbUser.getPassword(), 
+                    dbUser.getName(), 
+                    dbUser.isAdmin(), 
+                    dbUser.getAdress()
+                )
+            );
+        }
+        return userRecordDtos;
     }
 }

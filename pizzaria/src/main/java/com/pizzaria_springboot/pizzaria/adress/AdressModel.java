@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "tb_adresses")
 public class AdressModel extends AbstractEntity{
-	private String CEP;
+	private String cep;
 	private String district;
 	private String street;
 	private String number;
