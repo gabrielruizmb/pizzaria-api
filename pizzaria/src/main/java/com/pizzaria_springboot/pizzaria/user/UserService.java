@@ -38,6 +38,7 @@ public class UserService {
     }
 
     public void deleteUserValidation(Long id) {
+
         Assert.isTrue(
             this.userRepository.existsById(id), 
             "Usuário não encontrado."
@@ -46,34 +47,22 @@ public class UserService {
     }
 
     public UserRecordDto getUserValidation(Long id) {
+
         Assert.isTrue(
             this.userRepository.existsById(id), 
             "Usuário não encontrado."
         );
-        UserModel userModel = this.userRepository.findById(id).get();
-        UserRecordDto userRecordDto = new UserRecordDto(
-            userModel.getUsername(), 
-            userModel.getPassword(), 
-            userModel.getName(), 
-            userModel.isAdmin(), 
-            userModel.getAdress()
-        );
-        return userRecordDto;
+        UserModel dbUserModel = this.userRepository.findById(id).get();
+
+        return dbUserModel.convertToDto();
     }
 
     public List<UserRecordDto> getUsers() {
+
         List<UserModel> dbUsers = this.userRepository.findAll();
         List<UserRecordDto> userRecordDtos = new ArrayList<>();
         for (UserModel dbUser : dbUsers) {
-            userRecordDtos.add(
-                new UserRecordDto(
-                    dbUser.getUsername(),
-                    dbUser.getPassword(), 
-                    dbUser.getName(), 
-                    dbUser.isAdmin(), 
-                    dbUser.getAdress()
-                )
-            );
+            userRecordDtos.add(dbUser.convertToDto());
         }
         return userRecordDtos;
     }

@@ -25,4 +25,11 @@ public record UserRecordDto(
 	) String name,
 	boolean admin,
 	AdressModel adress
-) {}
+) {
+	public UserModel convertToModel() {
+		UserModel userModel = new UserModel(
+			username, password, name, admin, adress
+		);
+		return userModel;
+	}
+}

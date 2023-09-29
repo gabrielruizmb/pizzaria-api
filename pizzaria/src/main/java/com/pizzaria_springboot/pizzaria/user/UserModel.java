@@ -26,4 +26,15 @@ public class UserModel extends AbstractEntity {
 	@OneToOne
 	@JoinColumn(name = "adress_id")
 	private AdressModel adress;
+
+	public UserRecordDto convertToDto() {
+		UserRecordDto userRecordDto = new UserRecordDto(
+			this.username, 
+			this.password, 
+			this.name,
+			this.admin, 
+			this.adress
+		);
+		return userRecordDto;
+	}
 }

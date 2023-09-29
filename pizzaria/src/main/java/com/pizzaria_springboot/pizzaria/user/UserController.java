@@ -1,29 +1,31 @@
-// package com.pizzaria_springboot.pizzaria.user;
+package com.pizzaria_springboot.pizzaria.user;
 
-// import java.util.List;
+import java.util.List;
 
-// import org.springframework.http.HttpStatus;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.RequestMapping;
-// import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-// @RestController
-// @RequestMapping("/usuarios")
-// public class UserController { 
+@RestController
+@RequestMapping("/usuarios")
+public class UserController { 
 
-//     final UserService userService;
+    // final UserService userService;
     
-//     public UserController(UserService userService) {
-//         this.userService = userService;
-//     }
+    // public UserController(UserService userService) {
+    //     this.userService = userService;
+    // }
 
-//     @GetMapping
-//     public ResponseEntity<UserRecordDto> getUser(Long id) {
-//         return ResponseEntity.status(HttpStatus.OK)
-//                 .body(userService.getUserValidation(id));
-//     }
-
+    @PostMapping
+    public ResponseEntity<UserRecordDto> getUser() {
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
+}
 //     @GetMapping
 //     public ResponseEntity<List<UserRecordDto>> getUsers() {
 //         return ResponseEntity.status(HttpStatus.OK)
