@@ -25,7 +25,7 @@ class UserControllerTest {
 
 	public UserRecordDto createUserRecordDto() {
 		UserRecordDto userRecordDto = new UserRecordDto(
-			"userName", 
+			"username", 
             "password", 
             "Gabriel", 
             false, 
