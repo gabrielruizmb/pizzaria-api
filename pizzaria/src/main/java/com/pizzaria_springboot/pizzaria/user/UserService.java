@@ -18,7 +18,7 @@ public class UserService {
         Assert.isNull(
             this.userRepository.findByUsername(userModel.getUsername()),
             "Este nome de usuário já está em uso."
-            );
+        );
             
         this.userRepository.save(userModel);
     }

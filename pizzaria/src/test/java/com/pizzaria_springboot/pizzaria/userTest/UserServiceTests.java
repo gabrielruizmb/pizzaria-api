@@ -70,14 +70,8 @@ public class UserServiceTests {
     }
 
     public UserRecordDto createUserRecordDto() {
-        UserRecordDto userRecordDto = new UserRecordDto(
-            "userName", 
-            "password", 
-            "Gabriel", 
-            false, 
-            null
-        );
-        return userRecordDto;
+        UserModel userModel = createUserModel();
+        return userModel.convertToDto();
     }
 
     @Test
