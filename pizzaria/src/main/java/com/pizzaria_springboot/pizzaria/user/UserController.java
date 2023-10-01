@@ -3,9 +3,9 @@ package com.pizzaria_springboot.pizzaria.user;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,23 +21,35 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserRecordDto> createUser(
+    public ResponseEntity<String> createUser(
         @RequestBody @Validated UserRecordDto userRecordDto
     ) {
         try {
             userService.createUserValidation(userRecordDto.convertToModel());
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         } catch(Exception exception) {
-            UserRecordDto exceptionDto = new UserRecordDto(
-                exception.getMessage(), 
-                userRecordDto.password(), 
-                userRecordDto.name(), 
-                userRecordDto.admin(), 
-                userRecordDto.adress()
-            );
-            return ResponseEntity.internalServerError().body(exceptionDto);
+            return ResponseEntity.internalServerError()
+                    .body(exception.getMessage());
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(
+        @PathVariable("id") Long id, 
+        @RequestBody @Validated UserRecordDto userRecordDto
+    ) {
+        try {
+            userService.updateUserValidation(
+                id, userRecordDto.convertToModel()
+            );
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        } catch(Exception exception) {
+            return ResponseEntity.internalServerError()
+                    .body(exception.getMessage());
+        }
+    }
+
+    //public ResponseEntity<UserRecordDto> 
 }
 //     @GetMapping
 //     public ResponseEntity<List<UserRecordDto>> getUsers() {

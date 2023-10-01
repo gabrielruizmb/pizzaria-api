@@ -25,7 +25,7 @@ class UserControllerTest {
 
 	public UserRecordDto createUserRecordDto() {
 		UserRecordDto userRecordDto = new UserRecordDto(
-			"username", 
+			"username13", 
             "password", 
             "Gabriel", 
             false, 
@@ -34,12 +34,32 @@ class UserControllerTest {
 		return userRecordDto;
 	}
 
+	public UserRecordDto createNewUserRecordDto() {
+	UserRecordDto userRecordDto = new UserRecordDto(
+		"username14", 
+		"password", 
+		"Gabriel", 
+		false, 
+		null
+		);
+		return userRecordDto;
+	}
+
 	@Test
-	public void getUserTest() throws Exception{
+	public void createUserTest() throws Exception{
 		mockMvc.perform(MockMvcRequestBuilders
 				.post("/usuarios")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(createUserRecordDto())))
 				.andExpect(status().isCreated());
+	}
+
+	@Test
+	public void updateUserTest() throws Exception{
+		mockMvc.perform(MockMvcRequestBuilders
+				.put("/usuarios/{id}", 1)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(createNewUserRecordDto())))
+				.andExpect(status().isNoContent());
 	}
 }
