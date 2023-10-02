@@ -87,6 +87,7 @@ public class UserServiceTests {
         Long id = 1L;
         UserModel userModel = createUserModel();
         userService.updateUserValidation(id, userModel);
+        verify(userRepository).existsById(id);
         verify(userRepository).findByUsername(userModel.getUsername());
         verify(userRepository).save(userModel);
     }
@@ -107,7 +108,6 @@ public class UserServiceTests {
             userService.getUserValidation(id),
             createUserRecordDto()
         );
-        verify(userRepository).existsById(id);
         verify(userRepository).findById(id);
     }
 

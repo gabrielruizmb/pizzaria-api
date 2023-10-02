@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pizzaria_springboot.pizzaria.user.UserRecordDto;
@@ -25,9 +26,9 @@ class UserControllerTest {
 
 	public UserRecordDto createUserRecordDto() {
 		UserRecordDto userRecordDto = new UserRecordDto(
-			"username13", 
-            "password", 
-            "Gabriel", 
+			"testUsername", 
+            "testPassword", 
+            "testName", 
             false, 
             null
 		);
@@ -36,9 +37,9 @@ class UserControllerTest {
 
 	public UserRecordDto createNewUserRecordDto() {
 	UserRecordDto userRecordDto = new UserRecordDto(
-		"username14", 
-		"password", 
-		"Gabriel", 
+		"newTestUsername", 
+		"newTestPassword", 
+		"newTestName", 
 		false, 
 		null
 		);
@@ -61,5 +62,26 @@ class UserControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(createNewUserRecordDto())))
 				.andExpect(status().isNoContent());
+	}
+
+	@Test
+	public void deleteUserByIdTest() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders
+				.delete("/usuarios/{id}", 1))
+				.andExpect(status().isNoContent());
+	}
+
+	@Test
+	public void getUserByIdTest() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders
+				.get("/usuarios/{id}", 1))
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void getUsersTest() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders
+				.get("/usuarios/lista"))
+				.andExpect(status().isOk());
 	}
 }
