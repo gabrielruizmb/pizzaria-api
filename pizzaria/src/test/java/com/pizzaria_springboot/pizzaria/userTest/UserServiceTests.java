@@ -39,7 +39,7 @@ public class UserServiceTests {
         UserModel userModel = createUserModel();
 
         Mockito.when(userRepository.findByUsername(userModel.getUsername()))
-                .thenReturn(java.util.Optional.empty());
+                .thenReturn(null);
 
         Mockito.when(userRepository.save(userModel))
                 .thenReturn(userModel);
@@ -84,10 +84,11 @@ public class UserServiceTests {
     }
 
     @Test
-    public void updateUserValidation() {
+    public void isNewUserValidation() {
         Long id = 1L;
         UserModel userModel = createUserModel();
-        userService.updateUserValidation(id, userModel);
+        Assert.assertFalse(userService.isNewUser(id, userModel));
+        
         verify(userRepository).findByUsername(userModel.getUsername());
         verify(userRepository).findById(id);
         verify(userRepository).save(userModel);

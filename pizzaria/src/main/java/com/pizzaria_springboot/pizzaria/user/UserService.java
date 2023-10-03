@@ -17,19 +17,19 @@ public class UserService {
 
     public void createUserValidation(UserModel userModel) {
         
-        Assert.isTrue(
-            userRepository.findByUsername(userModel.getUsername()).isEmpty(),
+        Assert.isNull(
+            userRepository.findByUsername(userModel.getUsername()),
             "Este nome de usuário já está em uso."
         );
             
         this.userRepository.save(userModel);
     }
 
-    public void updateUserValidation(Long id, UserModel userModel) {
-
-        UserModel dbUserModel = this.userRepository.findByUsername(
+    public boolean isNewUser(Long id, UserModel userModel) {
+        
+        UserModel dbUserModel = userRepository.findByUsername(
             userModel.getUsername()
-        ).get();
+        );
 
         if(dbUserModel != null) {
             Assert.isTrue(
@@ -38,30 +38,14 @@ public class UserService {
             );
         }
 
-        dbUserModel = this.userRepository.findById(id).get();
-        BeanUtils.copyProperties(userModel, dbUserModel);
-        this.userRepository.save(dbUserModel);
+        dbUserModel = userRepository.findById(id).get();
+        if(dbUserModel == null) {
+            userRepository.save(userModel);
+            return true;
+        }
 
-
-        // Optional<UserModel> dbUserModel = this.userRepository.findById(id);
-
-        // Assert.isTrue(
-        //     dbUserModel.isPresent(), 
-        //     "Usuário não encontrado."
-        // );
-
-        // UserModel dbUserModel2 = 
-        // this.userRepository.findByUsername(userModel.getUsername());
-
-        // if (dbUserModel2 != null) {
-        //     Assert.isTrue(
-        //         dbUserModel2.getId() == id,
-        //         "Este nome de usuário já está em uso."
-        //     );
-        // }
-        // dbUserModel2 = dbUserModel.get();
-        // BeanUtils.copyProperties(userModel, dbUserModel2);
-        // this.userRepository.save(dbUserModel2);
+        userRepository.save(userModel);
+        return false;
     }
 
     public void deleteUserValidation(Long id) {

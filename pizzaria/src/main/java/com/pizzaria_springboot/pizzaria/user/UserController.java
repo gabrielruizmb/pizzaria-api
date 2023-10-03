@@ -30,9 +30,9 @@ public class UserController {
     ) {
         try {
             userService.createUserValidation(userRecordDto.convertToModel());
-            return ResponseEntity.status(HttpStatus.CREATED).body(null);
+            return ResponseEntity.created(null).body(null);
         } catch(Exception exception) {
-            return ResponseEntity.internalServerError()
+            return ResponseEntity.badRequest()
                     .body(exception.getMessage());
         }
     }
@@ -43,7 +43,7 @@ public class UserController {
         @RequestBody @Validated UserRecordDto userRecordDto
     ) {
         try {
-            userService.updateUserValidation(
+            userService.isNewUser(
                 id, userRecordDto.convertToModel()
             );
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
