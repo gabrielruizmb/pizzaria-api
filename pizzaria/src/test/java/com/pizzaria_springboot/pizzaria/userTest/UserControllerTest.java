@@ -26,9 +26,10 @@ class UserControllerTest {
 
 	public UserRecordDto createUserRecordDto() {
 		UserRecordDto userRecordDto = new UserRecordDto(
-			"testUsername1", 
-            "testPassword1", 
-            "testName1", 
+			1L,
+			"testUsername", 
+            "testPassword", 
+            "testName", 
             false, 
             null
 		);
@@ -36,12 +37,13 @@ class UserControllerTest {
 	}
 
 	public UserRecordDto createNewUserRecordDto() {
-	UserRecordDto userRecordDto = new UserRecordDto(
-		"newTestUsername1", 
-		"newTestPassword", 
-		"newTestName", 
-		false, 
-		null
+		UserRecordDto userRecordDto = new UserRecordDto(
+			1L,
+			"newTestUsername", 
+			"newTestPassword", 
+			"newTestName", 
+			false, 
+			null
 		);
 		return userRecordDto;
 	}

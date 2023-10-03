@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import jakarta.validation.constraints.AssertFalse;
+
 @Service
 public class UserService {
 
@@ -16,13 +18,11 @@ public class UserService {
     UserRepository userRepository;
 
     public void createUserValidation(UserModel userModel) {
-        
-        Assert.isNull(
-            userRepository.findByUsername(userModel.getUsername()),
-            "Este nome de usuário já está em uso."
-        );
-            
-        this.userRepository.save(userModel);
+
+        if(userRepository.existsByUsername(userModel.getUsername()) == true) {
+            throw new RuntimeException("Este nome de usuário já está em uso");
+        }
+        userRepository.save(userModel);
     }
 
     public boolean isNewUser(Long id, UserModel userModel) {
@@ -44,6 +44,7 @@ public class UserService {
             return true;
         }
 
+        userModel.setId(dbUserModel.getId());
         userRepository.save(userModel);
         return false;
     }

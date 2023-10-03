@@ -38,8 +38,11 @@ public class UserServiceTests {
         Long id = 1L;
         UserModel userModel = createUserModel();
 
-        Mockito.when(userRepository.findByUsername(userModel.getUsername()))
-                .thenReturn(null);
+        // Mockito.when(userRepository.findByUsername(userModel.getUsername()))
+        //         .thenReturn(null);
+
+        Mockito.when(userRepository.existsByUsername(userModel.getUsername()))
+                .thenReturn(false);
 
         Mockito.when(userRepository.save(userModel))
                 .thenReturn(userModel);
@@ -79,7 +82,7 @@ public class UserServiceTests {
     public void createUserValidationTest() {
         UserModel userModel = createUserModel();
         userService.createUserValidation(userModel);
-        verify(userRepository).findByUsername(userModel.getUsername());
+        verify(userRepository).existsByUsername(userModel.getUsername());
         verify(userRepository).save(userModel);
     }
 

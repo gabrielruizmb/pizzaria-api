@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record AdressRecordDto(
+    Long id,
     @NotBlank @Size(
         min = 5,
         max = 100,

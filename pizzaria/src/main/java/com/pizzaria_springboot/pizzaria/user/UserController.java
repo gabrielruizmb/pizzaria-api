@@ -43,13 +43,11 @@ public class UserController {
         @RequestBody @Validated UserRecordDto userRecordDto
     ) {
         try {
-            userService.isNewUser(
-                id, userRecordDto.convertToModel()
-            );
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+            return userService.isNewUser(id, userRecordDto.convertToModel()) ?
+                ResponseEntity.status(HttpStatus.CREATED).body(null) :
+                ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } catch(Exception exception) {
-            return ResponseEntity.internalServerError()
-                    .body(exception.getMessage());
+            return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
 

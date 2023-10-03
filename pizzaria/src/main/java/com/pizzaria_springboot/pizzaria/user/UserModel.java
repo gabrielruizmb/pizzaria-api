@@ -29,11 +29,12 @@ public class UserModel extends AbstractEntity {
 
 	public UserRecordDto convertToDto() {
 		UserRecordDto userRecordDto = new UserRecordDto(
-			this.username, 
-			this.password, 
-			this.name,
-			this.admin, 
-			this.adress
+			getId(),
+			username, 
+			password, 
+			name, 
+			admin, 
+			adress
 		);
 		return userRecordDto;
 	}
