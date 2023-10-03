@@ -17,8 +17,8 @@ public class UserService {
 
     public void createUserValidation(UserModel userModel) {
         
-        Assert.isNull(
-            this.userRepository.findByUsername(userModel.getUsername()),
+        Assert.isTrue(
+            userRepository.findByUsername(userModel.getUsername()).isEmpty(),
             "Este nome de usuário já está em uso."
         );
             
@@ -27,25 +27,41 @@ public class UserService {
 
     public void updateUserValidation(Long id, UserModel userModel) {
 
-        Optional<UserModel> dbUserModel = this.userRepository.findById(id);
+        UserModel dbUserModel = this.userRepository.findByUsername(
+            userModel.getUsername()
+        ).get();
 
-        Assert.isTrue(
-            dbUserModel.isPresent(), 
-            "Usuário não encontrado."
-        );
-
-        UserModel dbUserModel2 = 
-        this.userRepository.findByUsername(userModel.getUsername());
-
-        if (dbUserModel2 != null) {
+        if(dbUserModel != null) {
             Assert.isTrue(
-                dbUserModel2.getId() == id,
+                dbUserModel.getId() == id,
                 "Este nome de usuário já está em uso."
             );
         }
-        dbUserModel2 = dbUserModel.get();
-        BeanUtils.copyProperties(userModel, dbUserModel2);
-        this.userRepository.save(dbUserModel2);
+
+        dbUserModel = this.userRepository.findById(id).get();
+        BeanUtils.copyProperties(userModel, dbUserModel);
+        this.userRepository.save(dbUserModel);
+
+
+        // Optional<UserModel> dbUserModel = this.userRepository.findById(id);
+
+        // Assert.isTrue(
+        //     dbUserModel.isPresent(), 
+        //     "Usuário não encontrado."
+        // );
+
+        // UserModel dbUserModel2 = 
+        // this.userRepository.findByUsername(userModel.getUsername());
+
+        // if (dbUserModel2 != null) {
+        //     Assert.isTrue(
+        //         dbUserModel2.getId() == id,
+        //         "Este nome de usuário já está em uso."
+        //     );
+        // }
+        // dbUserModel2 = dbUserModel.get();
+        // BeanUtils.copyProperties(userModel, dbUserModel2);
+        // this.userRepository.save(dbUserModel2);
     }
 
     public void deleteUserValidation(Long id) {

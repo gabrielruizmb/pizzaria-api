@@ -4,6 +4,7 @@ import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,7 +39,7 @@ public class UserServiceTests {
         UserModel userModel = createUserModel();
 
         Mockito.when(userRepository.findByUsername(userModel.getUsername()))
-                .thenReturn(null);
+                .thenReturn(java.util.Optional.empty());
 
         Mockito.when(userRepository.save(userModel))
                 .thenReturn(userModel);
@@ -87,8 +88,8 @@ public class UserServiceTests {
         Long id = 1L;
         UserModel userModel = createUserModel();
         userService.updateUserValidation(id, userModel);
-        verify(userRepository).existsById(id);
         verify(userRepository).findByUsername(userModel.getUsername());
+        verify(userRepository).findById(id);
         verify(userRepository).save(userModel);
     }
 

@@ -26,7 +26,7 @@ class UserControllerTest {
 
 	public UserRecordDto createUserRecordDto() {
 		UserRecordDto userRecordDto = new UserRecordDto(
-			"testUsername", 
+			"testUsername1", 
             "testPassword", 
             "testName", 
             false, 
@@ -37,7 +37,7 @@ class UserControllerTest {
 
 	public UserRecordDto createNewUserRecordDto() {
 	UserRecordDto userRecordDto = new UserRecordDto(
-		"newTestUsername", 
+		"newTestUsername1", 
 		"newTestPassword", 
 		"newTestName", 
 		false, 
