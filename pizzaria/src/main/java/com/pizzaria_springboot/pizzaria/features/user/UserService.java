@@ -1,15 +1,11 @@
-package com.pizzaria_springboot.pizzaria.user;
+package com.pizzaria_springboot.pizzaria.features.user;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-
-import jakarta.validation.constraints.AssertFalse;
 
 @Service
 public class UserService {
@@ -20,17 +16,15 @@ public class UserService {
     public void createUserValidation(UserModel userModel) {
 
         if(userRepository.existsByUsername(userModel.getUsername()) == true) {
-            throw new RuntimeException("Este nome de usuário já está em uso");
+            throw new RuntimeException("Este nome de usuário já está em uso.");
         }
         userRepository.save(userModel);
     }
 
-    public boolean isNewUser(Long id, UserModel userModel) {
-        
-        UserModel dbUserModel = userRepository.findByUsername(
-            userModel.getUsername()
-        );
+    public UserRecordDto updateUserValidation(Long id, UserModel userModel) {
 
+        UserModel dbUserModel = userRepository.findByUsername(userModel.getUsername());
+        
         if(dbUserModel != null) {
             Assert.isTrue(
                 dbUserModel.getId() == id,
@@ -39,14 +33,13 @@ public class UserService {
         }
 
         dbUserModel = userRepository.findById(id).get();
-        if(dbUserModel == null) {
-            userRepository.save(userModel);
-            return true;
-        }
+
+        Assert.notNull(dbUserModel, "Este usuário não existe.");
 
         userModel.setId(dbUserModel.getId());
         userRepository.save(userModel);
-        return false;
+
+        return userModel.convertToDto();
     }
 
     public void deleteUserValidation(Long id) {
@@ -60,10 +53,10 @@ public class UserService {
 
     public UserRecordDto getUserValidation(Long id) {
 
-        // Assert.isTrue(
-        //     this.userRepository.existsById(id), 
-        //     "Usuário não encontrado."
-        // );
+        Assert.isTrue(
+            this.userRepository.existsById(id), 
+            "Usuário não encontrado."
+        );
         UserModel dbUserModel = this.userRepository.findById(id).get();
 
         return dbUserModel.convertToDto();

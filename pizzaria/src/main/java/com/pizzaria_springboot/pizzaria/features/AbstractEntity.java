@@ -1,4 +1,4 @@
-package com.pizzaria_springboot.pizzaria;
+package com.pizzaria_springboot.pizzaria.features;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

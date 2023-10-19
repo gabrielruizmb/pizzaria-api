@@ -1,7 +1,7 @@
-package com.pizzaria_springboot.pizzaria.user;
+package com.pizzaria_springboot.pizzaria.features.user;
 
-import com.pizzaria_springboot.pizzaria.AbstractEntity;
-import com.pizzaria_springboot.pizzaria.adress.AdressModel;
+import com.pizzaria_springboot.pizzaria.features.AbstractEntity;
+import com.pizzaria_springboot.pizzaria.features.adress.AdressModel;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;

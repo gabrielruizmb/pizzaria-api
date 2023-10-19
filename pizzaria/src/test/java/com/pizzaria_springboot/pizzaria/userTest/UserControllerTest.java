@@ -1,16 +1,23 @@
 package com.pizzaria_springboot.pizzaria.userTest;
 
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pizzaria_springboot.pizzaria.user.UserRecordDto;
+import com.pizzaria_springboot.pizzaria.features.user.UserController;
+import com.pizzaria_springboot.pizzaria.features.user.UserModel;
+import com.pizzaria_springboot.pizzaria.features.user.UserRecordDto;
+import com.pizzaria_springboot.pizzaria.features.user.UserRepository;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -18,13 +25,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class UserControllerTest {
 
+    @MockBean
+    private UserRepository userRepository;
+
+    @Autowired
+    UserController userController;
+
 	@Autowired
-	MockMvc mockMvc;
+	private MockMvc mockMvc;
 
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	public UserRecordDto createUserRecordDto() {
+	public UserRecordDto createValidUser() {
 		UserRecordDto userRecordDto = new UserRecordDto(
 			1L,
 			"testUsername", 
@@ -36,10 +49,10 @@ class UserControllerTest {
 		return userRecordDto;
 	}
 
-	public UserRecordDto createNewUserRecordDto() {
+	public UserRecordDto createInvalidUser() {
 		UserRecordDto userRecordDto = new UserRecordDto(
 			1L,
-			"newTestUsername", 
+			"", 
 			"newTestPassword", 
 			"newTestName", 
 			false, 
@@ -48,13 +61,43 @@ class UserControllerTest {
 		return userRecordDto;
 	}
 
+    public UserModel createUserModel() {
+        UserModel userModel = new UserModel(
+            "userName", 
+            "password", 
+            "Gabriel", 
+            false, 
+            null
+        );
+        return userModel;
+    }
+
+    public void setUp() {
+        UserModel userModel = createUserModel();
+        Mockito.when(userRepository.existsByUsername(userModel.getUsername()))
+                .thenReturn(false);
+        Mockito.when(userRepository.save(userModel))
+                .thenReturn(userModel);
+		Mockito.when(userRepository.existsById(1L))
+				.thenReturn(true);
+    }
+
 	@Test
-	public void createUserTest() throws Exception{
+	public void createValidUserTest() throws Exception{
 		mockMvc.perform(MockMvcRequestBuilders
 				.post("/usuarios")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(createUserRecordDto())))
+				.content(objectMapper.writeValueAsString(createValidUser())))
 				.andExpect(status().isCreated());
+	}
+
+	@Test
+	public void createInvalidUserTest() throws Exception{
+		mockMvc.perform(MockMvcRequestBuilders
+				.post("/usuarios")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(createInvalidUser())))
+				.andExpect(status().isBadRequest());
 	}
 
 	@Test
@@ -62,8 +105,8 @@ class UserControllerTest {
 		mockMvc.perform(MockMvcRequestBuilders
 				.put("/usuarios/{id}", 1)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(createNewUserRecordDto())))
-				.andExpect(status().isNoContent());
+				.content(objectMapper.writeValueAsString(createValidUser())))
+				.andExpect(status().isOk());
 	}
 
 	@Test
@@ -75,7 +118,7 @@ class UserControllerTest {
 
 	@Test
 	public void getUserByIdTest() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders
+		mockMvc.perform(MockMvcRequestBuilders	
 				.get("/usuarios/{id}", 1))
 				.andExpect(status().isOk());
 	}

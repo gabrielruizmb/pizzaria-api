@@ -1,4 +1,4 @@
-package com.pizzaria_springboot.pizzaria.user;
+package com.pizzaria_springboot.pizzaria.features.user;
 
 import java.util.List;
 
@@ -38,16 +38,26 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(
+    public ResponseEntity<UserRecordDto> updateUser(
         @PathVariable("id") Long id, 
         @RequestBody @Validated UserRecordDto userRecordDto
     ) {
         try {
-            return userService.isNewUser(id, userRecordDto.convertToModel()) ?
-                ResponseEntity.status(HttpStatus.CREATED).body(null) :
-                ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+            return ResponseEntity.ok().body(
+                userService.updateUserValidation(
+                    id, userRecordDto.convertToModel()
+                )
+            );
         } catch(Exception exception) {
-            return ResponseEntity.badRequest().body(exception.getMessage());
+            UserRecordDto userExceptionDto = new UserRecordDto(
+                userRecordDto.id(), 
+                exception.getMessage(), 
+                userRecordDto.password(), 
+                userRecordDto.name(), 
+                false, 
+                null
+            );
+            return ResponseEntity.badRequest().body(userExceptionDto);
         }
     }
 
@@ -57,7 +67,7 @@ public class UserController {
             userService.deleteUserValidation(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } catch(Exception exception) {
-            return ResponseEntity.internalServerError()
+            return ResponseEntity.badRequest()
                     .body(exception.getMessage());
         }
     }

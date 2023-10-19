@@ -1,6 +1,6 @@
-package com.pizzaria_springboot.pizzaria.user;
+package com.pizzaria_springboot.pizzaria.features.user;
 
-import com.pizzaria_springboot.pizzaria.adress.AdressModel;
+import com.pizzaria_springboot.pizzaria.features.adress.AdressModel;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

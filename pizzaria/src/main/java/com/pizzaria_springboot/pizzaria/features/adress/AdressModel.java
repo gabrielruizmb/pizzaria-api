@@ -1,6 +1,6 @@
-package com.pizzaria_springboot.pizzaria.adress;
+package com.pizzaria_springboot.pizzaria.features.adress;
 
-import com.pizzaria_springboot.pizzaria.AbstractEntity;
+import com.pizzaria_springboot.pizzaria.features.AbstractEntity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

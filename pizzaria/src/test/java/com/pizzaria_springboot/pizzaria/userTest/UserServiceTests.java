@@ -16,10 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.pizzaria_springboot.pizzaria.user.UserModel;
-import com.pizzaria_springboot.pizzaria.user.UserRecordDto;
-import com.pizzaria_springboot.pizzaria.user.UserRepository;
-import com.pizzaria_springboot.pizzaria.user.UserService;
+import com.pizzaria_springboot.pizzaria.features.user.UserModel;
+import com.pizzaria_springboot.pizzaria.features.user.UserRecordDto;
+import com.pizzaria_springboot.pizzaria.features.user.UserRepository;
+import com.pizzaria_springboot.pizzaria.features.user.UserService;
 
 
 @SpringBootTest
@@ -38,11 +38,11 @@ public class UserServiceTests {
         Long id = 1L;
         UserModel userModel = createUserModel();
 
-        // Mockito.when(userRepository.findByUsername(userModel.getUsername()))
-        //         .thenReturn(null);
-
         Mockito.when(userRepository.existsByUsername(userModel.getUsername()))
-                .thenReturn(false);
+        .thenReturn(false);
+        
+        Mockito.when(userRepository.findByUsername(userModel.getUsername()))
+                .thenReturn(null);
 
         Mockito.when(userRepository.save(userModel))
                 .thenReturn(userModel);
@@ -87,10 +87,14 @@ public class UserServiceTests {
     }
 
     @Test
-    public void isNewUserValidation() {
+    public void updateserValidation() {
         Long id = 1L;
         UserModel userModel = createUserModel();
-        Assert.assertFalse(userService.isNewUser(id, userModel));
+
+        Assert.assertEquals(
+            userService.updateUserValidation(id, userModel),
+            createUserRecordDto()
+        );
         
         verify(userRepository).findByUsername(userModel.getUsername());
         verify(userRepository).findById(id);
@@ -113,6 +117,7 @@ public class UserServiceTests {
             userService.getUserValidation(id),
             createUserRecordDto()
         );
+        verify(userRepository).existsById(id);
         verify(userRepository).findById(id);
     }
 
