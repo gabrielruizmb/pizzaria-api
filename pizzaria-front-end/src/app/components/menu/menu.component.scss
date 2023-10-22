@@ -1,0 +1,23 @@
+main {
+    background-color: rgb(250, 220, 53);
+    padding: 30px 20px 30px 20px;
+}
+
+section {
+    background-color: var(--main-color);
+    padding: 20px;
+    border-radius: 30px;
+}
+
+article {
+    height: 263px;
+    width: 180px;
+    padding: 10px;
+    background-color: rgb(250, 220, 53);
+    box-shadow: 0px 0px 5px black;
+    box-sizing:border-box;
+
+    & img {
+        width: 100%;
+    }
+}

@@ -1,10 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap');
 
 :root {
     --main-color: orange;
     --main-font: 'Playpen Sans', cursive;
+    --secondary-font: 'Tangerine', cursive;
     --text-color: black;
 }
 
@@ -17,4 +19,11 @@
 a {
     color: var(--text-color);
     text-decoration-line: none;
+}
+
+.section-title {
+    display: flex;
+    justify-content: center;
+    font-family: var(--secondary-font);
+    font-size: 60px;
 }
