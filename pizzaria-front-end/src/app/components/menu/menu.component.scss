@@ -1,23 +1,32 @@
-main {
-    background-color: rgb(250, 220, 53);
-    padding: 30px 20px 30px 20px;
-}
-
-section {
-    background-color: var(--main-color);
+#menu {
+    background-color: var(--secondary-color);
     padding: 20px;
     border-radius: 30px;
+    max-width: 1080px;
+}
+
+#cards-section {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 article {
     height: 263px;
     width: 180px;
-    padding: 10px;
-    background-color: rgb(250, 220, 53);
-    box-shadow: 0px 0px 5px black;
-    box-sizing:border-box;
+    margin: 20px;
+    //background-color: var(--secondary-color);
+    background-image: url('https://img.cadnav.com/allimg/130929/1-130929215300B5.jpg');
 
+    box-shadow: 0px 0px 5px black;
+    box-sizing: border-box;
+    
     & img {
         width: 100%;
     }
+}
+
+.card-info {
+    margin: 5px 10px 5px 10px;
 }

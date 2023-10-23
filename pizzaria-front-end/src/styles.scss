@@ -1,12 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Playpen+Sans:wght@300;500&family=Varela+Round&display=swap');
+// @import url('https://fonts.cdnfonts.com/css/friend');
+//@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@300;500&family=Poppins&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Playpen+Sans:wght@300;500&family=Poppins:ital,wght@0,400;1,300&display=swap');
 
 :root {
-    --main-color: orange;
-    --main-font: 'Playpen Sans', cursive;
-    --secondary-font: 'Tangerine', cursive;
+    --main-color: #ffb320;
+    --secondary-color: #ffe479; //fdbc3d
+    --main-font: 'Poppins', sans-serif;
+    --secondary-font: 'Courgette', cursive;
     --text-color: black;
 }
 
@@ -24,6 +29,5 @@ a {
 .section-title {
     display: flex;
     justify-content: center;
-    font-family: var(--secondary-font);
-    font-size: 60px;
+    font-size: 45px;
 }

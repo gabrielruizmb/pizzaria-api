@@ -25,6 +25,7 @@ header {
 nav {
     display: flex;
     align-items: baseline;
+
     & a:hover {
         text-decoration-line: underline;
     }
