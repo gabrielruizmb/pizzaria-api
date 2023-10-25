@@ -3,6 +3,7 @@
     padding: 20px;
     border-radius: 30px;
     max-width: 1080px;
+    border: 10px solid var(--main-color);
 }
 
 #cards-section {
@@ -16,8 +17,8 @@ article {
     height: 263px;
     width: 180px;
     margin: 20px;
-    //background-color: var(--secondary-color);
-    background-image: url('https://img.cadnav.com/allimg/130929/1-130929215300B5.jpg');
+    background-color: var(--main-color);
+    //background-image: url('https://img.cadnav.com/allimg/130929/1-130929215300B5.jpg');
 
     box-shadow: 0px 0px 5px black;
     box-sizing: border-box;

@@ -9,7 +9,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 1260px;
+    width: 1080px;
+    max-width: 1080px;
 }
 
 #header-logo {

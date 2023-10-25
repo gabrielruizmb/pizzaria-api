@@ -10,6 +10,8 @@
 :root {
     --main-color: #ffb320;
     --secondary-color: #ffe479; //fdbc3d
+    --sucess-color: #3aff20;
+    --shaded-sucess-color: #2dcf17;
     --main-font: 'Poppins', sans-serif;
     --secondary-font: 'Courgette', cursive;
     --text-color: black;
@@ -30,4 +32,19 @@ a {
     display: flex;
     justify-content: center;
     font-size: 45px;
+}
+
+.menu-options {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.sucess-button {
+    background-color: var(--sucess-color);
+    padding: 7.5px;
+    border-radius: 20px;
+
+    &:hover {
+        background-color: var(--shaded-sucess-color);
+    }
 }
