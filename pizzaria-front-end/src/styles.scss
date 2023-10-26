@@ -9,7 +9,8 @@
 
 :root {
     --main-color: #ffb320;
-    --secondary-color: #ffe479; //fdbc3d
+    --secondary-color: #ffd267; //ffd267 //ffdc8a
+    // --secondary-color: #ffe479; //fdbc3d
     --sucess-color: #3aff20;
     --shaded-sucess-color: #2dcf17;
     --main-font: 'Poppins', sans-serif;
@@ -20,7 +21,6 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: var(--main-font);
 }
 
 a {
@@ -46,5 +46,23 @@ a {
 
     &:hover {
         background-color: var(--shaded-sucess-color);
+    }
+}
+
+.food-card {
+    display: flex;
+    padding: 15px;
+    border-top: 3px dotted var(--text-color);
+}
+
+.food-image {
+    width: 180px;
+    border: 10px ridge var(--main-color);
+    margin-right: 30px;
+}
+
+@media (max-width: 480px) {
+    .food-card {
+        display: block;
     }
 }
