@@ -8,7 +8,8 @@ import { FlavourFormComponent } from './components/flavour-form/flavour-form.com
 const routes: Routes = [
   { path: "", component: IndexComponent, children: [
     { path: "pedido", component: OrderComponent },
-    { path: "sabor/novo", component: FlavourFormComponent }
+    { path: "sabor/novo", component: FlavourFormComponent },
+    { path: "sabor/:action/:id", component: FlavourFormComponent }
   ]}
 ];
 

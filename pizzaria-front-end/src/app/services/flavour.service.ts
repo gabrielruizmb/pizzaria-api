@@ -16,4 +16,8 @@ export class FlavourService {
   getAll(): Observable<Flavour[]> {
     return this.http.get<Flavour[]>(this.apiURL);
   }
+
+  post(flavour: Flavour): Observable<string> {
+    return this.http.post<string>(this.apiURL, flavour);
+  }
 }

@@ -9,10 +9,13 @@
 
 :root {
     --main-color: #ffb320;
+    --shaded-main-color: #e4a321;
     --secondary-color: #ffd267; //ffd267 //ffdc8a
     // --secondary-color: #ffe479; //fdbc3d
     --sucess-color: #3aff20;
     --shaded-sucess-color: #2dcf17;
+    --danger-color: #ff2f20;
+    --shaded-danger-color: #da281c;
     --main-font: 'Poppins', sans-serif;
     --secondary-font: 'Courgette', cursive;
     --text-color: black;
@@ -28,10 +31,17 @@ a {
     text-decoration-line: none;
 }
 
+.main-card {
+    background-color: var(--secondary-color);
+    max-width: 1080px;
+    padding: 30px;
+    border-radius: 15px;
+}
+
 .section-title {
     display: flex;
     justify-content: center;
-    font-size: 45px;
+    font-size: 50px;
 }
 
 .menu-options {
@@ -43,9 +53,31 @@ a {
     background-color: var(--sucess-color);
     padding: 7.5px;
     border-radius: 20px;
+    cursor: pointer;
 
     &:hover {
         background-color: var(--shaded-sucess-color);
+    }
+}
+
+.alert-button {
+    background-color: var(--main-color);
+    padding: 7.5px;
+    border-radius: 20px;
+
+    &:hover {
+        background-color: var(--shaded-main-color);
+    }
+}
+
+.danger-button {
+    background-color: var(--danger-color);
+    padding: 7.5px;
+    border-radius: 20px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--shaded-danger-color);
     }
 }
 
@@ -58,6 +90,7 @@ a {
 
 .food-image {
     width: 180px;
+    height: 135px;
     border: 10px ridge var(--main-color);
     margin-right: 30px;
 }
@@ -75,4 +108,15 @@ a {
     .food-card {
         display: block;
     }
+}
+
+.main-form-info {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.main-form-options {
+    display: flex;
+    justify-content: center;
 }
