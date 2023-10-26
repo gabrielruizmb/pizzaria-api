@@ -2,7 +2,7 @@
     <section id="menu">
         <h1>Cardápio</h1>
         <div class="menu-options">
-            <a href="produto/novo" class="sucess-button">+ Adicionar sabor</a>
+            <a href="sabor/novo" class="sucess-button">+ Adicionar sabor</a>
         </div>
         <section id="pizza-flavours">
             <article *ngFor = "let flavour of flavoursList" class="food-card">
@@ -14,6 +14,22 @@
                 <div class="card-info">
                     <h5>{{flavour.name}}</h5>
                     <p>Ingredientes: {{flavour.ingredients}}</p>
+                </div>
+                <div class="card-options">
+                    <a href="">
+                        <img 
+                            src="../../../assets/icons/pencil-icon.svg" 
+                            alt="Ícone de um lápis."
+                            title="Editar sabor"
+                        >
+                    </a>
+                    <a href="">
+                        <img 
+                            src="../../../assets/icons/trash-icon.svg" 
+                            alt="Ícone de uma lixeira."
+                            title="Excluír sabor"
+                        >
+                    </a>
                 </div>
             </article>
         </section>

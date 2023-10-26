@@ -11,6 +11,7 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { OrderComponent } from './components/order/order.component';
+import { FlavourFormComponent } from './components/flavour-form/flavour-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { OrderComponent } from './components/order/order.component';
     FooterComponent,
     MenuComponent,
     ProductDetailsComponent,
-    OrderComponent
+    OrderComponent,
+    FlavourFormComponent
   ],
   imports: [
     BrowserModule,
