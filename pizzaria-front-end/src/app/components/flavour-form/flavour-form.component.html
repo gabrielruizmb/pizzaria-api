@@ -32,38 +32,38 @@
                 <input type="url" name="url" [(ngModel)] = "flavour.imageURL">
             </div>
             <div *ngIf = "formAction === 'excluir'">
-                <label for="">Nome:</label> <br>
-                <input type="text" disabled [(ngModel)] = "flavour.name"> <br>
-                <label for="">Ingredientes:</label> <br>
+                <label for="name">Nome:</label> <br>
+                <input type="text" name="name" disabled [(ngModel)] = "flavour.name"> <br>
+                <label for="ingredients">Ingredientes:</label> <br>
                 <textarea 
-                    name="" 
+                    [(ngModel)] = "flavour.ingredients"
+                    name="ingredients" 
                     id="" 
                     cols="20" 
                     rows="5" 
                     disabled
-                    [(ngModel)] = "flavour.ingredients"
                 ></textarea> <br>
-                <label for="">URL da imagem:</label> <br>
-                <input type="url" disabled [(ngModel)] = "flavour.imageURL">
+                <label for="url">URL da imagem:</label> <br>
+                <input type="url" name="url" disabled [(ngModel)] = "flavour.imageURL">
             </div>
         </div>
         <div class="main-form-options">
             <a href="pedido" class="alert-button">Voltar</a>
-            <span
+            <a
                 *ngIf = "formAction === 'cadastrar'"
                 class="sucess-button" 
                 (click) = 'onSubmit()'
-            >Cadastrar</span>
-            <span 
+            >Cadastrar</a>
+            <a 
                 *ngIf = "formAction === 'editar'"
                 class="sucess-button" 
                 (click) = 'onSubmit()'
-            >Salvar</span>
-            <span 
+            >Salvar</a>
+            <a 
                 *ngIf = "formAction === 'excluir'"
                 class="danger-button" 
                 (click) = 'onSubmit()'
-            >Excluír</span>
+            >Excluír</a>
         </div>
     </form>
 </main>

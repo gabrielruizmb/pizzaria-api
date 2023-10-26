@@ -116,7 +116,15 @@ a {
     margin-bottom: 20px;
 }
 
+input, textarea {
+    margin-bottom: 10px;
+}
+
 .main-form-options {
     display: flex;
     justify-content: center;
+
+    & a {
+        margin: 0px 10px 10px 5px;
+    }
 }

@@ -17,7 +17,19 @@ export class FlavourService {
     return this.http.get<Flavour[]>(this.apiURL);
   }
 
+  getOne(id: number): Observable<Flavour> {
+    return this.http.get<Flavour>(this.apiURL + '/' + id);
+  }
+
   post(flavour: Flavour): Observable<string> {
     return this.http.post<string>(this.apiURL, flavour);
+  }
+
+  put(id: number, flavour: Flavour): Observable<string> {
+    return this.http.put<string>(this.apiURL + '/' + id, flavour);
+  }
+
+  delete(id: number): Observable<string> {
+    return this.http.delete<string>(this.apiURL + '/' + id);
   }
 }
