@@ -51,8 +51,9 @@ a {
 
 .food-card {
     display: flex;
-    padding: 15px;
+    padding: 20px 15px 20px 15px;
     border-top: 3px dotted var(--text-color);
+    margin-top: 30px;
 }
 
 .food-image {

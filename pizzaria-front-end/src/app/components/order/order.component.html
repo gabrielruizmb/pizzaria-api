@@ -1,17 +1,19 @@
 <main>
     <section id="menu">
         <h1>Cardápio</h1>
+        <div class="menu-options">
+            <a href="produto/novo" class="sucess-button">+ Adicionar sabor</a>
+        </div>
         <section id="pizza-flavours">
-            <h2>Sabores de pizza</h2>
-            <article class="food-card">
+            <article *ngFor = "let flavour of flavoursList" class="food-card">
                 <img 
                     class="food-image"
-                    src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg" 
+                    src="{{flavour.imageURL}}" 
                     alt="Imagem de uma pizza."
                 >
                 <div class="card-info">
-                    <h5>Marguerita</h5>
-                    <p>Ingredientes: Mussarela, manjericão e molho de tomate.</p>
+                    <h5>{{flavour.name}}</h5>
+                    <p>Ingredientes: {{flavour.ingredients}}</p>
                 </div>
             </article>
         </section>
