@@ -1,4 +1,28 @@
 <main class="main-card">
+    <section class="order">
+        <h1 class="section-title">Novo pedido:</h1>
+        <form action="" method="post">
+            <label for="name">Nome do cliente:</label> <br>
+            <input type="text" name="name" [(ngModel)] = "order.clientName"> <br>
+            <label for="phoneNumber">Telefone do cliente:</label> <br>
+            <input type="text" name="phoneNumber" [(ngModel)] = "order.clientPhoneNumber"> <br>
+            <label for="adress">Endereço do cliente:</label> <br>
+            <input type="text" name="adress" [(ngModel)] = "order.adress"> <br>
+            <label for="adressComplement">Complemento:</label> <br>
+            <input type="text" name="adressComplement" [(ngModel)] = "order.adressComplement"> <br>
+            <label for="orderInfo">Informações do pedido:</label> <br>
+            <textarea 
+                [(ngModel)] = "order.orderInfo"
+                name="orderInfo" 
+                id="" 
+                cols="30" 
+                rows="5"
+            ></textarea>
+            <div class="main-form-options">
+                <a class="sucess-button" (click) = "postOrder()">Enviar pedido</a>
+            </div>
+        </form>
+    </section>
     <section id="menu">
         <h1 class="section-title">Cardápio</h1>
         <div class="menu-options">
