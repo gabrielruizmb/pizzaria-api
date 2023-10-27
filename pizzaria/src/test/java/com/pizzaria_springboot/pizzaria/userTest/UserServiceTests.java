@@ -2,6 +2,11 @@ package com.pizzaria_springboot.pizzaria.userTest;
 
 import static org.mockito.Mockito.verify;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.pizzaria_springboot.pizzaria.user.UserModel;
-import com.pizzaria_springboot.pizzaria.user.UserRepository;
-import com.pizzaria_springboot.pizzaria.user.UserService;
+import com.pizzaria_springboot.pizzaria.features.user.UserModel;
+import com.pizzaria_springboot.pizzaria.features.user.UserRecordDto;
+import com.pizzaria_springboot.pizzaria.features.user.UserRepository;
+import com.pizzaria_springboot.pizzaria.features.user.UserService;
 
 
 @SpringBootTest
@@ -32,6 +38,9 @@ public class UserServiceTests {
         Long id = 1L;
         UserModel userModel = createUserModel();
 
+        Mockito.when(userRepository.existsByUsername(userModel.getUsername()))
+        .thenReturn(false);
+        
         Mockito.when(userRepository.findByUsername(userModel.getUsername()))
                 .thenReturn(null);
 
@@ -43,6 +52,9 @@ public class UserServiceTests {
 
         Mockito.when(userRepository.findById(id))
                 .thenReturn(java.util.Optional.of(userModel));
+
+        Mockito.when(userRepository.findAll())
+                .thenReturn(createUserModelList());
     }
 
     public UserModel createUserModel() {
@@ -56,20 +68,36 @@ public class UserServiceTests {
         return userModel;
     }
 
+    public List<UserModel> createUserModelList() {
+        List<UserModel> userModelList = new ArrayList<>();
+        return userModelList;
+    }
+
+    public UserRecordDto createUserRecordDto() {
+        UserModel userModel = createUserModel();
+        return userModel.convertToDto();
+    }
+
     @Test
     public void createUserValidationTest() {
         UserModel userModel = createUserModel();
         userService.createUserValidation(userModel);
-        verify(userRepository).findByUsername(userModel.getUsername());
+        verify(userRepository).existsByUsername(userModel.getUsername());
         verify(userRepository).save(userModel);
     }
 
     @Test
-    public void updateUserValidation() {
+    public void updateserValidation() {
         Long id = 1L;
         UserModel userModel = createUserModel();
-        userService.updateUserValidation(id, userModel);
+
+        Assert.assertEquals(
+            userService.updateUserValidation(id, userModel),
+            createUserRecordDto()
+        );
+        
         verify(userRepository).findByUsername(userModel.getUsername());
+        verify(userRepository).findById(id);
         verify(userRepository).save(userModel);
     }
 
@@ -84,14 +112,21 @@ public class UserServiceTests {
     @Test
     public void getUserValidationTest() {
         Long id = 1L;
-        userService.getUserValidation(id);
+
+        Assert.assertEquals(
+            userService.getUserValidation(id),
+            createUserRecordDto()
+        );
         verify(userRepository).existsById(id);
         verify(userRepository).findById(id);
     }
 
     @Test
     public void getUsersTest() {
-        userService.getUsers();
+        Assert.assertEquals(
+            userService.getUsers(),
+            createUserModelList()
+        );
         verify(userRepository).findAll();
     }
 }

@@ -1,0 +1,61 @@
+<main class="main-card">
+    <section class="order">
+        <h1 class="section-title">Novo pedido:</h1>
+        <form action="" method="post">
+            <label for="name">Nome do cliente:</label> <br>
+            <input type="text" name="name" [(ngModel)] = "order.clientName"> <br>
+            <label for="phoneNumber">Telefone do cliente:</label> <br>
+            <input type="text" name="phoneNumber" [(ngModel)] = "order.clientPhoneNumber"> <br>
+            <label for="adress">Endereço do cliente:</label> <br>
+            <input type="text" name="adress" [(ngModel)] = "order.adress"> <br>
+            <label for="adressComplement">Complemento:</label> <br>
+            <input type="text" name="adressComplement" [(ngModel)] = "order.adressComplement"> <br>
+            <label for="orderInfo">Informações do pedido:</label> <br>
+            <textarea 
+                [(ngModel)] = "order.orderInfo"
+                name="orderInfo" 
+                id="" 
+                cols="30" 
+                rows="5"
+            ></textarea>
+            <div class="main-form-options">
+                <a class="sucess-button" (click) = "postOrder()">Enviar pedido</a>
+            </div>
+        </form>
+    </section>
+    <section id="menu">
+        <h1 class="section-title">Cardápio</h1>
+        <div class="menu-options">
+            <a href="sabor/novo" class="sucess-button">+ Adicionar sabor</a>
+        </div>
+        <section id="pizza-flavours">
+            <article *ngFor = "let flavour of flavoursList" class="food-card">
+                <img 
+                    class="food-image"
+                    src="{{flavour.imageURL}}" 
+                    alt="Imagem de uma pizza."
+                >
+                <div class="card-info">
+                    <h5>{{flavour.name}}</h5>
+                    <p>Ingredientes: {{flavour.ingredients}}</p>
+                </div>
+                <div class="card-options">
+                    <a href="sabor/editar/{{flavour.id}}">
+                        <img 
+                            src="../../../assets/icons/pencil-icon.svg" 
+                            alt="Ícone de um lápis."
+                            title="Editar sabor"
+                        >
+                    </a>
+                    <a href="sabor/excluir/{{flavour.id}}">
+                        <img 
+                            src="../../../assets/icons/trash-icon.svg" 
+                            alt="Ícone de uma lixeira."
+                            title="Excluír sabor"
+                        >
+                    </a>
+                </div>
+            </article>
+        </section>
+    </section>
+</main>

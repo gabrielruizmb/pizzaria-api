@@ -1,0 +1,69 @@
+<main class="main-card">
+    <h1 
+        *ngIf = "formAction === 'cadastrar' "
+        class="section-title"
+    >Novo sabor</h1>
+    <h1 
+        *ngIf = "formAction === 'editar' "
+        class="section-title"
+    >Editar sabor</h1>
+    <h1 
+        *ngIf = "formAction === 'excluir' "
+        class="section-title"
+    >Excluír sabor</h1>
+    <form action="" method="post">
+        <div class="main-form-info">
+            <img 
+                class="food-image"
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg" 
+                alt="Imagem de uma pizza."
+            >
+            <div *ngIf = "formAction === 'cadastrar' || formAction === 'editar'">
+                <label for="name">Nome:</label> <br>
+                <input type="text" name = "name"  [(ngModel)] = "flavour.name"> <br>
+                <label for="ingredients">Ingredientes:</label> <br>
+                <textarea 
+                    [(ngModel)] = "flavour.ingredients"
+                    name="ingredients" 
+                    id="" cols="20" 
+                    rows="5"
+                ></textarea> <br>
+                <label for="url">URL da imagem:</label> <br>
+                <input type="url" name="url" [(ngModel)] = "flavour.imageURL">
+            </div>
+            <div *ngIf = "formAction === 'excluir'">
+                <label for="name">Nome:</label> <br>
+                <input type="text" name="name" disabled [(ngModel)] = "flavour.name"> <br>
+                <label for="ingredients">Ingredientes:</label> <br>
+                <textarea 
+                    [(ngModel)] = "flavour.ingredients"
+                    name="ingredients" 
+                    id="" 
+                    cols="20" 
+                    rows="5" 
+                    disabled
+                ></textarea> <br>
+                <label for="url">URL da imagem:</label> <br>
+                <input type="url" name="url" disabled [(ngModel)] = "flavour.imageURL">
+            </div>
+        </div>
+        <div class="main-form-options">
+            <a href="pedido" class="alert-button">Voltar</a>
+            <a
+                *ngIf = "formAction === 'cadastrar'"
+                class="sucess-button" 
+                (click) = 'onSubmit()'
+            >Cadastrar</a>
+            <a 
+                *ngIf = "formAction === 'editar'"
+                class="sucess-button" 
+                (click) = 'onSubmit()'
+            >Salvar</a>
+            <a 
+                *ngIf = "formAction === 'excluir'"
+                class="danger-button" 
+                (click) = 'onSubmit()'
+            >Excluír</a>
+        </div>
+    </form>
+</main>
