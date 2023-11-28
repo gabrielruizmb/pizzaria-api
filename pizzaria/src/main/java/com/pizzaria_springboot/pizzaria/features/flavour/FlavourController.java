@@ -60,7 +60,7 @@ public class FlavourController {
         @RequestBody @Validated FlavourDTO flavourDTO
     ) {
         try {
-            flavourService.put(id, flavourDTO);
+            flavourService.put(id, flavourDTO.convertToModel());
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         } catch(Exception exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());

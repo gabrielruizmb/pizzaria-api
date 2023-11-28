@@ -1,17 +1,16 @@
 package com.pizzaria_springboot.pizzaria.features.user;
 
-import com.pizzaria_springboot.pizzaria.features.adress.AdressModel;
+import java.util.UUID;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public record UserRecordDto(
-	Long id,
-	@NotBlank @Size(
-		min = 5,
-		max = 20,
-		message = "O nome de usuário deve conter entre 5 e 20 caracteres"
-	) String username,
+	UUID id,
+
+	@Email
+	String email,
 
 	@NotBlank @Size(
 		min = 8,
@@ -24,12 +23,11 @@ public record UserRecordDto(
 		max = 50, 
 		message = "O nome deve conter entre 2 e 50 caracteres"
 	) String name,
-	boolean admin,
-	AdressModel adress
-) {
+	boolean admin
+	) {
 	public UserModel convertToModel() {
 		UserModel userModel = new UserModel(
-			username, password, name, admin, adress
+			id, email, password, name, admin
 		);
 		return userModel;
 	}
