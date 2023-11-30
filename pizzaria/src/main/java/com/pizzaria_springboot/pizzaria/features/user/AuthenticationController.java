@@ -1,7 +1,9 @@
 package com.pizzaria_springboot.pizzaria.features.user;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.validation.annotation.Validated;
@@ -51,6 +53,21 @@ public class AuthenticationController {
     ) {
         try {
             authorizationService.createUser(newUser);
+            return ResponseEntity.status(HttpStatus.CREATED).body(null);
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                exception.getMessage()
+            );
+        }
+    }
+
+    @PostMapping("/register-by-admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<String> createUserByAdmin(
+        @RequestBody @Validated UserRegisterByAdminDTO newUser
+    ) {
+        try {
+            authorizationService.createUserByAdmin(newUser);
             return ResponseEntity.status(HttpStatus.CREATED).body(null);
         } catch (Exception exception) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(

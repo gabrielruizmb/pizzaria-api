@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,6 +46,7 @@ public class FlavourController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> post(@RequestBody @Validated FlavourDTO flavourDTO) {
         try {
             flavourService.post(flavourDTO);
@@ -55,6 +57,7 @@ public class FlavourController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> put(
         @PathVariable Long id,
         @RequestBody @Validated FlavourDTO flavourDTO
@@ -66,8 +69,8 @@ public class FlavourController {
             return ResponseEntity.badRequest().body(exception.getMessage());
         }
     }
-
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> deleteById(@PathVariable Long id) {
         try {
             flavourService.deleteById(id);

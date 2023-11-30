@@ -28,4 +28,12 @@ public class AuthorizationService implements UserDetailsService{
         
         userRepository.save(newUser.convertToModel());
     }
+
+    public void createUserByAdmin(UserRegisterByAdminDTO newUser) {
+        Assert.isTrue(
+            userRepository.findByEmail(newUser.email()) == null, 
+            "Este e-mail já está em uso."
+        );
+        userRepository.save(newUser.convertToModel());
+    }
 }   
