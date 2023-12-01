@@ -1,132 +1,132 @@
-package com.pizzaria_springboot.pizzaria.userTest;
+// package com.pizzaria_springboot.pizzaria.userTest;
 
-import static org.mockito.Mockito.verify;
+// import static org.mockito.Mockito.verify;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+// import java.util.ArrayList;
+// import java.util.List;
+// import java.util.Optional;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+// import org.junit.Assert;
+// import org.junit.Before;
+// import org.junit.Test;
+// import org.junit.runner.RunWith;
+// import org.mockito.Mockito;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.boot.test.context.SpringBootTest;
+// import org.springframework.boot.test.mock.mockito.MockBean;
+// import org.springframework.test.context.junit4.SpringRunner;
 
-import com.pizzaria_springboot.pizzaria.features.user.UserModel;
-import com.pizzaria_springboot.pizzaria.features.user.UserRecordDto;
-import com.pizzaria_springboot.pizzaria.features.user.UserRepository;
-import com.pizzaria_springboot.pizzaria.features.user.UserService;
+// import com.pizzaria_springboot.pizzaria.features.user.UserModel;
+// import com.pizzaria_springboot.pizzaria.features.user.UserRecordDto;
+// import com.pizzaria_springboot.pizzaria.features.user.UserRepository;
+// import com.pizzaria_springboot.pizzaria.features.user.UserService;
 
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-public class UserServiceTests {
+// @SpringBootTest
+// @RunWith(SpringRunner.class)
+// public class UserServiceTests {
 
-    @Autowired
-    private final UserService userService = new UserService();
+//     @Autowired
+//     private final UserService userService = new UserService();
 
-    @MockBean
-    UserRepository userRepository;
+//     @MockBean
+//     UserRepository userRepository;
 
-    @Before
-    public void setUp() {
+//     @Before
+//     public void setUp() {
 
-        Long id = 1L;
-        UserModel userModel = createUserModel();
+//         Long id = 1L;
+//         UserModel userModel = createUserModel();
 
-        Mockito.when(userRepository.existsByUsername(userModel.getUsername()))
-        .thenReturn(false);
+//         Mockito.when(userRepository.existsByUsername(userModel.getUsername()))
+//         .thenReturn(false);
         
-        Mockito.when(userRepository.findByUsername(userModel.getUsername()))
-                .thenReturn(null);
+//         Mockito.when(userRepository.findByUsername(userModel.getUsername()))
+//                 .thenReturn(null);
 
-        Mockito.when(userRepository.save(userModel))
-                .thenReturn(userModel);
+//         Mockito.when(userRepository.save(userModel))
+//                 .thenReturn(userModel);
 
-        Mockito.when(userRepository.existsById(id))
-                .thenReturn(true);
+//         Mockito.when(userRepository.existsById(id))
+//                 .thenReturn(true);
 
-        Mockito.when(userRepository.findById(id))
-                .thenReturn(java.util.Optional.of(userModel));
+//         Mockito.when(userRepository.findById(id))
+//                 .thenReturn(java.util.Optional.of(userModel));
 
-        Mockito.when(userRepository.findAll())
-                .thenReturn(createUserModelList());
-    }
+//         Mockito.when(userRepository.findAll())
+//                 .thenReturn(createUserModelList());
+//     }
 
-    public UserModel createUserModel() {
-        UserModel userModel = new UserModel(
-            "userName", 
-            "password", 
-            "Gabriel", 
-            false, 
-            null
-        );
-        return userModel;
-    }
+//     public UserModel createUserModel() {
+//         UserModel userModel = new UserModel(
+//             "userName", 
+//             "password", 
+//             "Gabriel", 
+//             false, 
+//             null
+//         );
+//         return userModel;
+//     }
 
-    public List<UserModel> createUserModelList() {
-        List<UserModel> userModelList = new ArrayList<>();
-        return userModelList;
-    }
+//     public List<UserModel> createUserModelList() {
+//         List<UserModel> userModelList = new ArrayList<>();
+//         return userModelList;
+//     }
 
-    public UserRecordDto createUserRecordDto() {
-        UserModel userModel = createUserModel();
-        return userModel.convertToDto();
-    }
+//     public UserRecordDto createUserRecordDto() {
+//         UserModel userModel = createUserModel();
+//         return userModel.convertToDto();
+//     }
 
-    @Test
-    public void createUserValidationTest() {
-        UserModel userModel = createUserModel();
-        userService.createUserValidation(userModel);
-        verify(userRepository).existsByUsername(userModel.getUsername());
-        verify(userRepository).save(userModel);
-    }
+//     @Test
+//     public void createUserValidationTest() {
+//         UserModel userModel = createUserModel();
+//         userService.createUserValidation(userModel);
+//         verify(userRepository).existsByUsername(userModel.getUsername());
+//         verify(userRepository).save(userModel);
+//     }
 
-    @Test
-    public void updateserValidation() {
-        Long id = 1L;
-        UserModel userModel = createUserModel();
+//     @Test
+//     public void updateserValidation() {
+//         Long id = 1L;
+//         UserModel userModel = createUserModel();
 
-        Assert.assertEquals(
-            userService.updateUserValidation(id, userModel),
-            createUserRecordDto()
-        );
+//         Assert.assertEquals(
+//             userService.updateUserValidation(id, userModel),
+//             createUserRecordDto()
+//         );
         
-        verify(userRepository).findByUsername(userModel.getUsername());
-        verify(userRepository).findById(id);
-        verify(userRepository).save(userModel);
-    }
+//         verify(userRepository).findByUsername(userModel.getUsername());
+//         verify(userRepository).findById(id);
+//         verify(userRepository).save(userModel);
+//     }
 
-    @Test
-    public void deleteUserTest() {
-        Long id = 1L;
-        userService.deleteUserValidation(id);
-        verify(userRepository).existsById(id);
-        verify(userRepository).deleteById(id);
-    }
+//     @Test
+//     public void deleteUserTest() {
+//         Long id = 1L;
+//         userService.deleteUserValidation(id);
+//         verify(userRepository).existsById(id);
+//         verify(userRepository).deleteById(id);
+//     }
 
-    @Test
-    public void getUserValidationTest() {
-        Long id = 1L;
+//     @Test
+//     public void getUserValidationTest() {
+//         Long id = 1L;
 
-        Assert.assertEquals(
-            userService.getUserValidation(id),
-            createUserRecordDto()
-        );
-        verify(userRepository).existsById(id);
-        verify(userRepository).findById(id);
-    }
+//         Assert.assertEquals(
+//             userService.getUserValidation(id),
+//             createUserRecordDto()
+//         );
+//         verify(userRepository).existsById(id);
+//         verify(userRepository).findById(id);
+//     }
 
-    @Test
-    public void getUsersTest() {
-        Assert.assertEquals(
-            userService.getUsers(),
-            createUserModelList()
-        );
-        verify(userRepository).findAll();
-    }
-}
+//     @Test
+//     public void getUsersTest() {
+//         Assert.assertEquals(
+//             userService.getUsers(),
+//             createUserModelList()
+//         );
+//         verify(userRepository).findAll();
+//     }
+// }

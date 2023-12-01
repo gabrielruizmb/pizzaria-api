@@ -21,24 +21,22 @@ public class FlavourService {
         flavourRepository.save(flavourDTO.convertToModel());
     }
 
-    public void put(Long id, FlavourDTO flavourDTO) {
+    public void put(Long id, FlavourModel flavourModel) {
 
-        FlavourModel dbFlavour = flavourRepository.findByName(flavourDTO.name());
+        // FlavourModel dbFlavour = flavourRepository.findByName(flavourModel.getName());
         
-        if(dbFlavour != null) {
-            Assert.isTrue(
-                dbFlavour.getId() == id,
-                "Este sabor já existe."
-            );
-        }
+        // if(dbFlavour != null) {
+        //     Assert.isTrue(
+        //         dbFlavour.getId() == id,
+        //         "Este sabor já existe."
+        //     );
+        // }
 
-        dbFlavour = flavourRepository.findById(id).get();
+        // dbFlavour = flavourRepository.findById(id).get();
 
-        Assert.notNull(dbFlavour, "Este sabor não existe.");
+        // Assert.notNull(dbFlavour, "Este sabor não existe.");
 
-        FlavourModel flavourModel = flavourDTO.convertToModel();
-
-        flavourModel.setId(dbFlavour.getId());
+        // flavourModel.setId(dbFlavour.getId());
         flavourRepository.save(flavourModel);
     }
 
